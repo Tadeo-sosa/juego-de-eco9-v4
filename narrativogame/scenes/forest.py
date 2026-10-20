@@ -18,11 +18,18 @@ class ForestScene(Scene):
 
         # Fondo del bosque (panorámico)
         try:
+        
             self.bg = pygame.image.load("assets/images/forest_bg.png").convert()
         except Exception:
             self.bg = pygame.Surface((WIDTH, HEIGHT))
             self.bg.fill((224, 235, 228))
-        self.bg = pygame.transform.smoothscale(self.bg, (1920, HEIGHT))
+        BG_WIDTH = 2560
+        BG_HEIGHT = HEIGHT
+
+        self.bg = pygame.transform.smoothscale(
+         self.bg, (BG_WIDTH, BG_HEIGHT)
+        )
+
         self.camera_x = 0
 
         # Ignorar clics heredados al entrar
@@ -40,6 +47,10 @@ class ForestScene(Scene):
         # Sprite del brillo
         try:
             self.glitter_img = pygame.image.load("assets/images/forest_glitter.png").convert_alpha()
+                # Modificar el tamaño del brillo
+            self.glitter_img = pygame.transform.smoothscale(
+             self.glitter_img, (1024, 735)
+            )
         except Exception:
             self.glitter_img = None
 
@@ -47,8 +58,13 @@ class ForestScene(Scene):
         self.exit_img = None
         try:
             img = pygame.image.load("assets/images/exit_icon.png").convert_alpha()
-            self.exit_img = pygame.transform.smoothscale(img, (self.exit_zone.w, self.exit_zone.h))
-        except Exception:
+            exit_width = 200
+            exit_height = 200
+
+            self.exit_img = pygame.transform.smoothscale(img, (exit_width, exit_height))
+            print("Icono de salida cargado correctamente")
+        except Exception as e:
+            print("Error al cargar el icono de salida:", e)
             self.exit_img = None
 
         # Guion
@@ -75,7 +91,7 @@ class ForestScene(Scene):
 
             elif self.npc.rect.collidepoint(event.pos):
                 self.state.add("curiosidad", 1)
-                self.narrator.say("Narrador: El guía susurra un atajo entre los árboles.")
+                self.narrator.say("Pana Miguel: ve por el cartel |to be continued|")
 
             elif self.exit_zone.collidepoint(event.pos):
                 self.manager.replace(
@@ -104,8 +120,11 @@ class ForestScene(Scene):
         # (si no hay imagen, no dibujamos el fallback para mantener estética)
 
         # icono de salida (si existe)
-        if self.exit_img:
-            surf.blit(self.exit_img, self.exit_zone.topleft)
+        if self.exit_img is not None:
+            exit_x = self.exit_zone.x - 120 # Mover a la izquierda
+            exit_y = self.exit_zone.y - 80
+
+            surf.blit(self.exit_img, (exit_x, exit_y))
         # (si querés debug visual, destapá el rectángulo)
         # pygame.draw.rect(surf, (200, 210, 220), self.exit_zone, 2, border_radius=8)
 
@@ -113,6 +132,6 @@ class ForestScene(Scene):
         self.npc.draw(surf)
         self.player.draw(surf)
 
-        tip = self.font.render("Haz clic para caminar. Brillo / NPC / borde der. para salir.", True, PALETTE["ink"])
+        tip = self.font.render("Haz clic para caminar. Brillo / NPC / borde der. para salir. UwU", True, PALETTE["ink"])
         surf.blit(tip, (20, 20))
         self.narrator.draw(surf)

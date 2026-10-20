@@ -27,8 +27,8 @@ class TitleScene(Scene):
 
     def on_enter(self):
         self.audio.play_ambience()
-        self.narrator.say("Narrador: Bienvenida a 'Pequeña Fortuna'.")
-        self.narrator.say("Narrador: Un paseo breve, decisiones suaves.")
+        self.narrator.say("Pana Miguel: Bienvenida a 'Escapa del Backroom'.")
+        self.narrator.say("Pana Miguel: easy peasy.")
 
         btn_w, btn_h = 220, 48
         start_btn = Button(
@@ -53,7 +53,7 @@ class TitleScene(Scene):
         else:
             surf.fill(PALETTE["bg"])
 
-        title = self.font_big.render("Pequeña Fortuna (demo)", True, PALETTE["ink"])
+        title = self.font_big.render("epic minigame", True, PALETTE["ink"])
         tr = title.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 80))
         surf.blit(title, tr)
 

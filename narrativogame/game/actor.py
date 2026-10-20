@@ -9,8 +9,8 @@ class Character:
         self.sprite = None
         try:
             img = pygame.image.load("assets/images/hero_idle.png").convert_alpha()
-            # escalar a 64x64 aprox para encajar
-            self.sprite = pygame.transform.smoothscale(img, (64, 64))
+            # escalar a 350x350 aprox para encajar
+            self.sprite = pygame.transform.smoothscale(img, (250, 250))
         except Exception:
             self.sprite = None
 
@@ -41,7 +41,7 @@ class NPC:
         self.sprite = None
         try:
             img = pygame.image.load("assets/images/npc1.png").convert_alpha()
-            self.sprite = pygame.transform.smoothscale(img, (64, 64))
+            self.sprite = pygame.transform.smoothscale(img, (150, 150))
         except Exception:
             self.sprite = None
 
