@@ -4,6 +4,7 @@ import pygame
 from settings import WIDTH, HEIGHT
 from engine.scene_manager import Scene
 from scenes.ending import EndingScene
+from scenes.pipes import PipesScene
 
 
 class ValvulasScene(Scene):
@@ -215,7 +216,7 @@ class ValvulasScene(Scene):
             elif self.fase == "perdido" and event.key == pygame.K_r:
                 self.reiniciar()
             elif self.fase == "ganado" and event.key in (pygame.K_SPACE, pygame.K_RETURN):
-                self.manager.replace(EndingScene(self.manager, self.state, self.audio))
+                self.manager.replace(PipesScene(self.manager, self.state, self.audio))
             elif self.fase == "jugando":
                 if event.key in (pygame.K_SPACE, pygame.K_RETURN):
                     self.avanzar()
